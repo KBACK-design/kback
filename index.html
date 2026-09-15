@@ -1,0 +1,848 @@
+<title>Saturday</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,380;0,9..144,480;0,9..144,560;0,9..144,640;1,9..144,420;1,9..144,500&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --canvas:#E8E1CD;
+    --canvas-2:#DCD2B4;
+    --panel:#D8CBA9;
+    --ink:#2A3330;
+    --ink-soft:#5B655C;
+    --brick:#9A4632;
+    --brick-deep:#7C3626;
+    --olive:#5C6349;
+    --line:#B3A67F;
+    --paper:#F1EAD6;
+    --dark:#211D15;
+    --shadow-tee:rgba(42,51,48,.16);
+    --focus:#3E6E63;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --canvas:#1D1A13;
+      --canvas-2:#26221A;
+      --panel:#2A251C;
+      --ink:#ECE4CE;
+      --ink-soft:#B7AD90;
+      --brick:#C7684E;
+      --brick-deep:#DE7B5E;
+      --olive:#9AA37E;
+      --line:#4C4432;
+      --paper:#26221A;
+      --dark:#12100B;
+      --shadow-tee:rgba(0,0,0,.4);
+      --focus:#9AD1C0;
+    }
+  }
+  :root[data-theme="dark"]{
+    --canvas:#1D1A13;
+    --canvas-2:#26221A;
+    --panel:#2A251C;
+    --ink:#ECE4CE;
+    --ink-soft:#B7AD90;
+    --brick:#C7684E;
+    --brick-deep:#DE7B5E;
+    --olive:#9AA37E;
+    --line:#4C4432;
+    --paper:#26221A;
+    --dark:#12100B;
+    --shadow-tee:rgba(0,0,0,.4);
+    --focus:#9AD1C0;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--canvas);
+    color:var(--ink);
+    font-family:'Fraunces',Georgia,'Iowan Old Style',serif;
+    font-optical-sizing:auto;
+    font-weight:380;
+    line-height:1.5;
+    padding:0 20px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;}
+  a{color:inherit;}
+  img,svg{max-width:100%;}
+  h1,h2,h3{text-wrap:balance;margin:0;font-weight:560;}
+  .label{
+    font-family:'Barlow Condensed',Arial Narrow,sans-serif;
+    font-weight:600;
+    letter-spacing:.02em;
+  }
+  button{font-family:inherit;}
+  :focus-visible{outline:2.5px solid var(--focus);outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+  }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:40;
+    background:color-mix(in srgb, var(--canvas) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    max-width:1180px;margin:0 auto;padding:14px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .wordmark{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:560;
+    font-size:1.5rem;letter-spacing:.01em;
+  }
+  .nav-links{display:flex;gap:22px;align-items:center;list-style:none;margin:0;padding:0;}
+  .nav-links a{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.02rem;
+    text-decoration:none;color:var(--ink-soft);letter-spacing:.02em;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{color:var(--brick);}
+  .cart-btn{
+    display:flex;align-items:center;gap:8px;
+    background:none;border:1.5px solid var(--ink);border-radius:100px;
+    padding:7px 14px 7px 12px;cursor:pointer;color:var(--ink);
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.02rem;
+    transition:background .15s ease, color .15s ease;
+  }
+  .cart-btn:hover{background:var(--ink);color:var(--canvas);}
+  .cart-count{
+    background:var(--brick);color:var(--paper);border-radius:100px;
+    min-width:19px;height:19px;font-size:.72rem;display:inline-flex;
+    align-items:center;justify-content:center;padding:0 5px;font-weight:700;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;border-radius:22px;overflow:hidden;margin-top:18px;
+    background:linear-gradient(180deg,#3A4A57 0%,#4A5A63 38%,#6B6650 72%,#8B7C56 100%);
+    isolation:isolate;
+  }
+  :root[data-theme="dark"] .hero{filter:brightness(.92);}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{filter:brightness(.92);}}
+  .hero-scene{display:block;width:100%;height:auto;}
+  .hero-copy{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:40px 20px;
+    color:#F3ECD8;
+  }
+  .hero-eyebrow{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.16em;
+    font-size:.82rem;color:#D8C9A0;margin-bottom:10px;
+  }
+  .hero-title{
+    font-size:clamp(3rem,10vw,6.4rem);line-height:.92;
+    font-weight:640;letter-spacing:.005em;
+    text-shadow:0 0 26px rgba(230,120,70,.55), 0 0 60px rgba(230,120,70,.25);
+  }
+  .hero-tag{
+    font-style:italic;font-size:clamp(1.05rem,2.4vw,1.4rem);margin-top:14px;color:#E7DCC0;
+  }
+  .hero-cta{
+    margin-top:26px;background:var(--brick);color:#F6EEDD;border:none;
+    padding:13px 26px;border-radius:100px;font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;font-size:1.08rem;letter-spacing:.02em;cursor:pointer;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .hero-cta:hover{background:var(--brick-deep);transform:translateY(-1px);}
+
+  /* ---------- wayfinder ---------- */
+  .wayfinder{
+    display:flex;gap:10px;overflow-x:auto;padding:22px 2px 8px;
+    scrollbar-width:none;
+  }
+  .wayfinder::-webkit-scrollbar{display:none;}
+  .way-pill{
+    flex:none;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;
+    letter-spacing:.02em;padding:8px 18px;border-radius:100px;border:1.5px solid var(--line);
+    background:var(--canvas-2);color:var(--ink-soft);text-decoration:none;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .way-pill:hover{border-color:var(--brick);color:var(--brick);}
+
+  /* ---------- collection spread ---------- */
+  .collection{
+    display:grid;grid-template-columns:1.05fr 1fr;gap:56px;
+    padding:64px 0;border-top:1px solid var(--line);align-items:center;
+  }
+  .collection.flip{grid-template-columns:1fr 1.05fr;}
+  .collection.flip .info{order:-1;}
+  @media (max-width:860px){
+    .collection,.collection.flip{grid-template-columns:1fr;gap:28px;padding:44px 0;}
+    .collection.flip .info{order:0;}
+  }
+
+  .media{position:relative;}
+  .tee-stage{
+    background:var(--panel);border-radius:20px;padding:34px;position:relative;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:inset 0 0 0 1px var(--line);
+  }
+  .tee-stage svg{width:100%;height:auto;max-width:380px;filter:drop-shadow(0 18px 22px var(--shadow-tee));}
+  .tee-side{display:none;}
+  .tee-side.active{display:block;}
+
+  .view-toggle{
+    display:flex;justify-content:center;gap:0;margin-top:16px;
+    border:1.5px solid var(--ink);border-radius:100px;overflow:hidden;width:fit-content;
+    margin-left:auto;margin-right:auto;
+  }
+  .view-toggle button{
+    background:none;border:none;padding:7px 20px;cursor:pointer;color:var(--ink);
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.98rem;letter-spacing:.03em;
+    transition:background .15s ease,color .15s ease;
+  }
+  .view-toggle button.active{background:var(--ink);color:var(--canvas);}
+
+  .info{max-width:480px;}
+  .info .kicker{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;color:var(--olive);
+    letter-spacing:.03em;font-size:1.02rem;margin-bottom:6px;
+  }
+  .info h2{font-size:clamp(1.9rem,3.4vw,2.5rem);}
+  .info .tagline{font-style:italic;color:var(--ink-soft);margin-top:6px;font-size:1.08rem;}
+  .info .desc{margin-top:16px;font-size:1.02rem;color:var(--ink-soft);max-width:46ch;}
+  .price{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.3rem;margin-top:18px;}
+
+  .swatch-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .swatch{
+    width:30px;height:30px;border-radius:100px;border:2px solid transparent;
+    cursor:pointer;position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);
+  }
+  .swatch.selected{border-color:var(--ink);}
+  .swatch:focus-visible{outline-offset:3px;}
+
+  .size-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .size-pill{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.98rem;
+    border:1.5px solid var(--line);background:var(--canvas-2);color:var(--ink);
+    padding:6px 14px;border-radius:8px;cursor:pointer;
+  }
+  .size-pill.selected{border-color:var(--ink);background:var(--ink);color:var(--canvas);}
+
+  .add-btn{
+    margin-top:20px;background:var(--brick);color:#F6EEDD;border:none;
+    padding:13px 24px;border-radius:10px;font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;font-size:1.06rem;letter-spacing:.02em;cursor:pointer;width:100%;
+    transition:background .15s ease;
+  }
+  .add-btn:hover{background:var(--brick-deep);}
+  .spec{
+    margin-top:14px;font-family:'Barlow Condensed',sans-serif;color:var(--ink-soft);
+    font-size:.92rem;letter-spacing:.01em;border-top:1px dashed var(--line);padding-top:12px;
+  }
+
+  /* helmet picker (athletic club only) */
+  .variant-block{margin-top:26px;padding-top:18px;border-top:1px dashed var(--line);}
+  .variant-title{font-family:'Barlow Condensed',sans-serif;font-weight:600;color:var(--ink);font-size:1rem;margin-bottom:10px;}
+  .variant-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;max-width:340px;}
+  @media (max-width:480px){.variant-grid{grid-template-columns:repeat(4,1fr);}}
+  .variant-btn{
+    aspect-ratio:1;border-radius:8px;border:1.5px solid var(--line);background:var(--canvas-2);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;padding:6px;
+  }
+  .variant-btn.selected{border-color:var(--brick);background:var(--paper);}
+  .variant-btn svg{width:100%;height:100%;color:var(--ink);}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:48px 0 60px;margin-top:20px;}
+  .foot-grid{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+  .foot-brand{max-width:340px;}
+  .foot-brand .wordmark{display:block;margin-bottom:10px;}
+  .foot-brand p{color:var(--ink-soft);font-size:.98rem;}
+  .foot-cols{display:flex;gap:56px;flex-wrap:wrap;}
+  .foot-col .label{display:block;color:var(--ink);font-size:1rem;margin-bottom:10px;}
+  .foot-col a{display:block;color:var(--ink-soft);text-decoration:none;font-size:.96rem;margin-bottom:7px;}
+  .foot-col a:hover{color:var(--brick);}
+  .foot-bottom{
+    margin-top:36px;padding-top:18px;border-top:1px dashed var(--line);
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    font-family:'Barlow Condensed',sans-serif;color:var(--ink-soft);font-size:.88rem;
+  }
+
+  /* ---------- cart drawer ---------- */
+  .scrim{
+    position:fixed;inset:0;background:rgba(20,17,10,.4);z-index:50;
+    opacity:0;pointer-events:none;transition:opacity .2s ease;
+  }
+  .scrim.open{opacity:1;pointer-events:auto;}
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);
+    background:var(--canvas);z-index:60;box-shadow:-14px 0 30px rgba(0,0,0,.18);
+    transform:translateX(100%);transition:transform .25s ease;
+    display:flex;flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 22px;border-bottom:1px solid var(--line);
+  }
+  .drawer-head h3{font-size:1.4rem;font-style:italic;}
+  .drawer-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--ink);line-height:1;}
+  .drawer-body{flex:1;overflow-y:auto;padding:16px 22px;}
+  .drawer-empty{color:var(--ink-soft);margin-top:30px;text-align:center;font-style:italic;}
+  .cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center;}
+  .cart-item .swatch-dot{width:34px;height:34px;border-radius:8px;flex:none;}
+  .cart-item .ci-info{flex:1;min-width:0;}
+  .cart-item .ci-name{font-weight:560;font-size:1rem;}
+  .cart-item .ci-meta{font-family:'Barlow Condensed',sans-serif;color:var(--ink-soft);font-size:.88rem;}
+  .cart-item .ci-price{font-family:'Barlow Condensed',sans-serif;font-weight:700;}
+  .ci-remove{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:.85rem;text-decoration:underline;font-family:'Barlow Condensed',sans-serif;}
+  .drawer-foot{border-top:1px solid var(--line);padding:18px 22px;}
+  .drawer-sub{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.15rem;margin-bottom:14px;}
+  .checkout-btn{
+    width:100%;background:var(--ink);color:var(--canvas);border:none;padding:14px;
+    border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    font-size:1.06rem;cursor:pointer;
+  }
+  .checkout-note{font-size:.82rem;color:var(--ink-soft);margin-top:8px;text-align:center;}
+
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);
+    background:var(--ink);color:var(--canvas);padding:12px 22px;border-radius:100px;
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.01em;
+    z-index:80;opacity:0;transition:opacity .2s ease, transform .2s ease;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+</style>
+
+<!-- ============== ICON SPRITE ============== -->
+<svg width="0" height="0" style="position:absolute">
+<defs>
+  <g id="i-star" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linejoin="round">
+    <path d="M50 8 L58 42 L92 50 L58 58 L50 92 L42 58 L8 50 L42 42 Z"/>
+  </g>
+  <g id="i-moon" stroke="currentColor" fill="none" stroke-width="3.2">
+    <path d="M62 20 A32 32 0 1 0 62 80 A24 24 0 0 1 62 20 Z"/>
+  </g>
+  <g id="i-palm" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M50 92 L54 46"/>
+    <path d="M54 50 C40 40 26 42 16 34"/>
+    <path d="M54 46 C44 30 44 18 36 8"/>
+    <path d="M54 44 C56 26 62 16 60 6"/>
+    <path d="M55 46 C66 34 80 32 90 22"/>
+  </g>
+  <g id="i-oar" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linecap="round">
+    <line x1="50" y1="6" x2="50" y2="94"/>
+    <ellipse cx="50" cy="16" rx="9" ry="15"/>
+  </g>
+  <g id="i-sailboat" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 78 Q50 92 92 78"/>
+    <line x1="50" y1="78" x2="50" y2="14"/>
+    <path d="M50 16 L80 66 L50 66 Z"/>
+    <path d="M50 30 L30 66 L50 66 Z"/>
+  </g>
+  <g id="i-bird" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M10 20 Q22 6 34 20"/>
+    <path d="M34 20 Q46 6 58 20"/>
+  </g>
+  <g id="i-sun" stroke="currentColor" fill="none" stroke-width="3">
+    <circle cx="50" cy="50" r="20"/>
+  </g>
+  <g id="i-cooler" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round">
+    <rect x="18" y="34" width="64" height="46" rx="6"/>
+    <line x1="18" y1="50" x2="82" y2="50"/>
+    <path d="M32 34 V22 H68 V34"/>
+  </g>
+  <g id="i-chair" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 30 L28 90 M80 30 L72 90 M20 30 L80 30 M28 90 L20 96 M72 90 L80 96 M24 60 L76 60"/>
+    <path d="M30 30 L36 8 M70 30 L64 8"/>
+  </g>
+  <g id="i-pennant" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round">
+    <line x1="20" y1="10" x2="20" y2="92"/>
+    <path d="M20 14 L84 30 L20 46 Z"/>
+  </g>
+  <g id="i-paw" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="50" cy="62" rx="22" ry="18"/>
+    <ellipse cx="26" cy="34" rx="9" ry="11"/>
+    <ellipse cx="46" cy="20" rx="9" ry="11"/>
+    <ellipse cx="66" cy="20" rx="9" ry="11"/>
+    <ellipse cx="82" cy="36" rx="9" ry="11"/>
+  </g>
+  <g id="i-golfclub" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linecap="round">
+    <line x1="20" y1="90" x2="80" y2="14"/>
+    <path d="M80 14 L92 8 L88 22 Z"/>
+  </g>
+  <g id="i-golfflag" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="50" cy="88" r="6"/>
+    <line x1="50" y1="80" x2="50" y2="10"/>
+    <path d="M50 12 L82 24 L50 36 Z"/>
+  </g>
+  <g id="i-golfcart" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M12 66 H88 V40 H40 L28 66"/>
+    <path d="M40 40 V16 H72 V40"/>
+    <circle cx="28" cy="78" r="9"/>
+    <circle cx="76" cy="78" r="9"/>
+  </g>
+  <g id="i-umbrella" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 46 A40 40 0 0 1 90 46 Z"/>
+    <line x1="50" y1="46" x2="50" y2="94"/>
+    <path d="M42 94 Q50 100 58 94"/>
+  </g>
+  <g id="i-wave" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M6 50 Q19 38 32 50 T58 50 T84 50 T110 50" transform="translate(-5,0)"/>
+  </g>
+  <g id="i-leaf" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M50 10 C74 22 84 40 74 62 C84 66 90 74 90 82 C78 78 70 80 66 88 C62 78 56 74 50 78 C44 74 38 78 34 88 C30 80 22 78 10 82 C10 74 16 66 26 62 C16 40 26 22 50 10 Z"/>
+    <line x1="50" y1="20" x2="50" y2="76"/>
+  </g>
+  <g id="i-truck" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M8 66 V32 H56 V66"/>
+    <path d="M56 44 H78 L92 58 V66 H56"/>
+    <circle cx="26" cy="74" r="8"/>
+    <circle cx="76" cy="74" r="8"/>
+  </g>
+  <g id="i-goalpost" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linecap="round">
+    <line x1="50" y1="90" x2="50" y2="34"/>
+    <line x1="18" y1="34" x2="82" y2="34"/>
+    <line x1="18" y1="34" x2="18" y2="10"/>
+    <line x1="82" y1="34" x2="82" y2="10"/>
+  </g>
+  <g id="i-floodlight" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round">
+    <line x1="50" y1="94" x2="50" y2="20"/>
+    <rect x="24" y="4" width="52" height="18" rx="3"/>
+    <line x1="30" y1="22" x2="24" y2="34"/>
+    <line x1="42" y1="22" x2="40" y2="34"/>
+    <line x1="58" y1="22" x2="60" y2="34"/>
+    <line x1="70" y1="22" x2="76" y2="34"/>
+  </g>
+
+  <!-- helmet shell -->
+  <g id="i-helmet-shell" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M14 58 C14 26 34 10 58 10 C80 10 92 26 92 46 C92 58 88 64 88 72 L70 72 C70 64 66 60 58 60 C50 60 46 66 44 74 L22 74 C16 74 14 66 14 58 Z"/>
+    <path d="M44 74 L38 92 L54 88 L58 74"/>
+    <path d="M14 46 C10 46 6 50 6 56 C6 62 10 66 16 66"/>
+    <line x1="70" y1="72" x2="70" y2="52"/>
+    <line x1="70" y1="52" x2="88" y2="46"/>
+  </g>
+  <!-- helmet decals -->
+  <g id="d-classic" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linecap="round"><line x1="24" y1="18" x2="70" y2="52"/></g>
+  <g id="d-lettermark" stroke="currentColor" fill="none" stroke-width="3.4"><text x="46" y="42" font-family="Barlow Condensed" font-weight="700" font-size="30" text-anchor="middle" stroke="none" fill="currentColor">S</text></g>
+  <g id="d-stripe" stroke="currentColor" fill="none" stroke-width="5"><path d="M50 12 C48 30 48 50 46 68"/></g>
+  <g id="d-clover" stroke="currentColor" fill="none" stroke-width="3">
+    <circle cx="42" cy="30" r="7"/><circle cx="56" cy="30" r="7"/><circle cx="49" cy="42" r="7"/><line x1="49" y1="48" x2="49" y2="58"/>
+  </g>
+  <g id="d-solid" stroke="currentColor" fill="currentColor"><circle cx="50" cy="38" r="16"/></g>
+  <g id="d-number" stroke="currentColor" fill="none" stroke-width="3"><text x="46" y="46" font-family="Barlow Condensed" font-weight="700" font-size="26" text-anchor="middle" stroke="none" fill="currentColor">87</text></g>
+  <g id="d-bolt" stroke="currentColor" fill="none" stroke-width="3.2" stroke-linejoin="round"><path d="M54 14 L36 42 L48 42 L42 66 L64 34 L52 34 Z"/></g>
+  <g id="d-star" stroke="currentColor" fill="none" stroke-width="2.6" stroke-linejoin="round"><path d="M48 18 L53 32 L67 32 L56 41 L60 55 L48 47 L36 55 L40 41 L29 32 L43 32 Z"/></g>
+  <g id="d-script" stroke="currentColor" fill="none" stroke-width="2.6"><text x="46" y="42" font-family="Fraunces" font-style="italic" font-size="15" text-anchor="middle" stroke="none" fill="currentColor">Saturday</text></g>
+  <g id="d-minimal" stroke="currentColor" fill="none" stroke-width="3" stroke-linecap="round"><line x1="34" y1="24" x2="60" y2="50"/><line x1="60" y1="24" x2="34" y2="50"/></g>
+  <g id="d-retrostripe" stroke="currentColor" fill="none" stroke-width="9"><line x1="50" y1="12" x2="46" y2="70"/></g>
+  <g id="d-landscape" stroke="currentColor" fill="none" stroke-width="3" stroke-linejoin="round"><path d="M28 46 L42 24 L52 38 L62 20 L74 46 Z"/></g>
+</defs>
+</svg>
+
+<!-- ============== NAV ============== -->
+<div class="nav">
+  <div class="nav-row wrap">
+    <span class="wordmark">Saturday</span>
+    <ul class="nav-links" id="topNavLinks">
+      <li><a href="#travel">Shop</a></li>
+      <li><a href="#about">About the fabric</a></li>
+    </ul>
+    <button class="cart-btn" id="openCart" aria-haspopup="dialog">
+      Bag <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- ============== HERO ============== -->
+<div class="wrap">
+  <div class="hero">
+    <svg class="hero-scene" viewBox="0 0 1180 520" preserveAspectRatio="xMidYMax slice" role="img" aria-label="A roadside motel marquee glowing at dusk, with palm trees along the horizon">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#E4794F" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#E4794F" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="590" cy="150" r="240" fill="url(#glow)"/>
+      <circle cx="140" cy="70" r="1.6" fill="#F3ECD8" opacity=".8"/>
+      <circle cx="220" cy="110" r="1.2" fill="#F3ECD8" opacity=".6"/>
+      <circle cx="960" cy="60" r="1.6" fill="#F3ECD8" opacity=".8"/>
+      <circle cx="1040" cy="120" r="1.2" fill="#F3ECD8" opacity=".6"/>
+      <circle cx="80" cy="150" r="1.2" fill="#F3ECD8" opacity=".5"/>
+      <circle cx="1090" cy="170" r="1.6" fill="#F3ECD8" opacity=".7"/>
+      <use href="#i-moon" x="880" y="30" width="70" height="70" color="#F3ECD8" opacity=".9"/>
+      <path d="M0,400 C150,380 260,410 420,395 C600,378 700,405 880,392 C1000,384 1090,398 1180,388 L1180,520 L0,520 Z" fill="#3A3226" opacity=".9"/>
+      <g opacity=".85" color="#241E15">
+        <use href="#i-palm" x="60" y="270" width="120" height="150"/>
+        <use href="#i-palm" x="960" y="260" width="130" height="160"/>
+        <use href="#i-palm" x="1060" y="290" width="100" height="130"/>
+      </g>
+      <line x1="588" y1="200" x2="588" y2="400" stroke="#3A3226" stroke-width="10"/>
+    </svg>
+    <div class="hero-copy">
+      <span class="hero-eyebrow">Weekend Travel Club · Est. 1987</span>
+      <h1 class="hero-title">SATURDAY</h1>
+      <p class="hero-tag">Same weekend. Different view.</p>
+      <button class="hero-cta" id="heroShop">Shop the collections</button>
+    </div>
+  </div>
+
+  <nav class="wayfinder" aria-label="Jump to collection">
+    <a class="way-pill" href="#travel">Travel Club</a>
+    <a class="way-pill" href="#athletic">Athletic Club</a>
+    <a class="way-pill" href="#yacht">Yacht Club</a>
+    <a class="way-pill" href="#tailgate">Tailgate Club</a>
+    <a class="way-pill" href="#country">Country Club</a>
+    <a class="way-pill" href="#beach">Beach Club</a>
+    <a class="way-pill" href="#fall">Fall Social</a>
+  </nav>
+
+  <!-- ============ COLLECTIONS (populated by JS) ============ -->
+  <main id="collections"></main>
+
+  <!-- ============ ABOUT / FABRIC ============ -->
+  <section id="about" style="padding:50px 0;border-top:1px solid var(--line);max-width:640px;">
+    <h2 style="font-size:1.9rem;">Built on one blank, every time.</h2>
+    <p style="color:var(--ink-soft);margin-top:12px;font-size:1.03rem;">
+      Every Saturday tee starts on the same piece: Comfort Colors 1717, garment-dyed
+      after cutting so the color settles unevenly into the weave, then washed soft
+      before it ever reaches you. 100% ring-spun cotton, relaxed through the body
+      and sleeve. It's the one variable we don't experiment with — the prints do
+      the rest.
+    </p>
+  </section>
+</div>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <span class="wordmark">Saturday</span>
+      <p>A weekend travel club that never left the driveway. Motels, tailgates, marinas, and fairways — same throughline, different backdrop.</p>
+    </div>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <span class="label">Collections</span>
+        <a href="#travel">Travel Club</a>
+        <a href="#athletic">Athletic Club</a>
+        <a href="#yacht">Yacht Club</a>
+        <a href="#country">Country Club</a>
+      </div>
+      <div class="foot-col">
+        <span class="label">Get in touch</span>
+        <a href="mailto:hello@wearesaturday.club">hello@wearesaturday.club</a>
+        <a href="#about">Fabric &amp; care</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 Saturday Travel Club</span>
+    <span>Concept storefront — no orders are actually placed here.</span>
+  </div>
+</footer>
+
+<!-- ============== CART DRAWER ============== -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-label="Shopping bag">
+  <div class="drawer-head">
+    <h3>Your bag</h3>
+    <button class="drawer-close" id="closeCart" aria-label="Close bag">&times;</button>
+  </div>
+  <div class="drawer-body" id="drawerBody">
+    <p class="drawer-empty">Nothing in here yet — the weekend's still young.</p>
+  </div>
+  <div class="drawer-foot">
+    <div class="drawer-sub"><span>Subtotal</span><span id="subtotal">$0</span></div>
+    <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+    <p class="checkout-note">Concept store — checkout isn't wired up yet.</p>
+  </div>
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  // ---------- data ----------
+  var SWATCH_INK = {
+    slate:'#F0EAD6', charcoal:'#F0EAD6', navy:'#F0EAD6', forest:'#F0EAD6', brown:'#F0EAD6',
+    oat:'#2A3330', sage:'#F0EAD6', brick:'#F0EAD6', tan:'#2A3330'
+  };
+  var SWATCH_HEX = {
+    slate:'#4E5D6C', charcoal:'#2B2B2E', navy:'#2E3B4E', forest:'#33402E', brown:'#4E3B2C',
+    oat:'#D9CBA6', sage:'#5B6448', brick:'#8B4A3B', tan:'#C7A97B'
+  };
+
+  var HELMET_VARIANTS = [
+    ['d-classic','Classic'], ['d-lettermark','Lettermark'], ['d-stripe','Stripe'], ['d-clover','Traditional'],
+    ['d-solid','Solid'], ['d-number','Number'], ['d-bolt','Bolt'], ['d-star','Star'],
+    ['d-script','Script'], ['d-minimal','Minimal'], ['d-retrostripe','Retro stripe'], ['d-landscape','Landscape']
+  ];
+
+  function tee(colorVar, frontInner, backInner, extraFrontAttrs){
+    return ''+
+    '<svg class="tee-side active" data-side="front" viewBox="0 0 300 340" role="img" aria-label="Front of the tee">'+
+      '<path d="M150,42 L112,10 L74,28 L48,64 L76,82 L76,98 L76,320 Q150,336 224,320 L224,98 L224,82 L252,64 L226,28 L188,10 Z" fill="'+colorVar+'"/>'+
+      '<path d="M118,14 Q150,34 182,14" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="3"/>'+
+      '<g transform="translate(150,120)" color="var(--tee-ink)">'+frontInner+'</g>'+
+    '</svg>'+
+    '<svg class="tee-side" data-side="back" viewBox="0 0 300 340" role="img" aria-label="Back of the tee">'+
+      '<path d="M150,42 L112,10 L74,28 L48,64 L76,82 L76,98 L76,320 Q150,336 224,320 L224,98 L224,82 L252,64 L226,28 L188,10 Z" fill="'+colorVar+'"/>'+
+      '<g transform="translate(150,150)" color="var(--tee-ink)">'+backInner+'</g>'+
+    '</svg>';
+  }
+
+  function arc(text, r, y, size){
+    var id = 'arc'+Math.random().toString(36).slice(2,9);
+    return '<path id="'+id+'" d="M '+(-r)+' '+y+' A '+r+' '+r+' 0 0 1 '+r+' '+y+'" fill="none"/>'+
+      '<text font-family="Barlow Condensed" font-weight="700" font-size="'+size+'" letter-spacing="1.5" fill="currentColor">'+
+      '<textPath href="#'+id+'" startOffset="50%" text-anchor="middle">'+text+'</textPath></text>';
+  }
+
+  // ---------- products ----------
+  var PRODUCTS = [
+    {
+      id:'travel', name:'Saturday Motel', line:'Travel Club', tagline:'Same roads. Better weekends.',
+      price:52, colors:['slate','oat','sage','brick'],
+      desc:"A roadside motel sign at midnight — vacancy lit, palms swaying, nowhere to be until Monday.",
+      front:'<use href="#i-star" x="-11" y="-46" width="22" height="22"/><text x="0" y="-8" font-family="Fraunces" font-style="italic" font-size="15" text-anchor="middle" fill="currentColor">Saturday</text><rect x="-24" y="2" width="48" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><text x="0" y="14" font-family="Barlow Condensed" font-weight="700" font-size="10" text-anchor="middle" fill="currentColor">MOTEL</text>',
+      back:'<use href="#i-star" x="-13" y="-104" width="26" height="26"/>'+
+        arc('SATURDAY',80,-58,26)+
+        '<rect x="-70" y="-34" width="140" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2.6"/><text x="0" y="-13" font-family="Barlow Condensed" font-weight="700" font-size="20" text-anchor="middle" fill="currentColor">MOTEL</text>'+
+        '<rect x="-58" y="4" width="116" height="34" fill="none" stroke="currentColor" stroke-width="1.6"/>'+
+        '<text x="0" y="16" font-family="Barlow Condensed" font-weight="600" font-size="8.5" text-anchor="middle" fill="currentColor">GOOD FRIENDS</text>'+
+        '<text x="0" y="26" font-family="Barlow Condensed" font-weight="600" font-size="8.5" text-anchor="middle" fill="currentColor">LATE NIGHTS</text>'+
+        '<text x="0" y="36" font-family="Barlow Condensed" font-weight="600" font-size="8.5" text-anchor="middle" fill="currentColor">BETTER WEEKENDS</text>'+
+        '<use href="#i-palm" x="-92" y="30" width="46" height="56"/><use href="#i-palm" x="52" y="26" width="46" height="56"/><use href="#i-moon" x="46" y="-10" width="22" height="22"/>'
+    },
+    {
+      id:'athletic', name:'Saturday Night Football', line:'Athletic Club', tagline:'Good games. Better weekends.',
+      price:52, colors:['charcoal','slate','sage','oat'],
+      desc:'Stadium lights, a 7:30 kickoff, and a helmet you get to design yourself.',
+      hasHelmet:true,
+      front:'<text x="0" y="-30" font-family="Barlow Condensed" font-weight="700" font-size="15" text-anchor="middle" fill="currentColor">SATURDAY</text><use href="#i-helmet-shell" class="chest-helmet" x="-20" y="-12" width="40" height="40"/><use class="chest-decal" href="#d-classic" x="-20" y="-12" width="40" height="40"/>',
+      back:arc('SATURDAY NIGHT FOOTBALL',94,-70,17)+
+        '<use href="#i-floodlight" x="-96" y="-42" width="44" height="44"/><use href="#i-floodlight" x="52" y="-42" width="44" height="44"/>'+
+        '<use href="#i-goalpost" x="-28" y="-30" width="56" height="56"/>'+
+        '<text x="0" y="34" font-family="Barlow Condensed" font-weight="700" font-size="12" text-anchor="middle" fill="currentColor">KICKOFF 7:30</text>'+
+        '<text x="0" y="48" font-family="Barlow Condensed" font-weight="600" font-size="10" text-anchor="middle" fill="currentColor">SATURDAY ATHLETIC CLUB</text>'+
+        '<text x="0" y="60" font-family="Barlow Condensed" font-weight="600" font-size="8" text-anchor="middle" fill="currentColor">EST. 1987</text>'
+    },
+    {
+      id:'yacht', name:'Saturday Yacht Club', line:'Yacht Club', tagline:'No plans. Fair winds.',
+      price:54, colors:['navy','oat','sage','brick'],
+      desc:'No marina required — just a boat, a horizon, and absolutely nowhere to be.',
+      front:'<text x="0" y="-36" font-family="Barlow Condensed" font-weight="700" font-size="12" text-anchor="middle" fill="currentColor">SATURDAY</text><text x="0" y="-24" font-family="Barlow Condensed" font-weight="700" font-size="12" text-anchor="middle" fill="currentColor">YACHT CLUB</text><g transform="translate(0,-8) rotate(45)"><use href="#i-oar" x="-6" y="-16" width="12" height="32"/></g><g transform="translate(0,-8) rotate(-45)"><use href="#i-oar" x="-6" y="-16" width="12" height="32"/></g>',
+      back:arc('SATURDAY YACHT CLUB',88,-66,20)+
+        '<use href="#i-bird" x="-70" y="-40" width="28" height="16"/><use href="#i-bird" x="34" y="-46" width="24" height="14"/>'+
+        '<use href="#i-sun" x="24" y="-24" width="46" height="46" opacity=".7"/>'+
+        '<use href="#i-sailboat" x="-46" y="-24" width="92" height="70"/>'+
+        '<text x="0" y="58" font-family="Barlow Condensed" font-weight="700" font-size="11" text-anchor="middle" fill="currentColor">NO PLANS. FAIR WINDS.</text>'+
+        '<text x="0" y="70" font-family="Barlow Condensed" font-weight="600" font-size="8" text-anchor="middle" fill="currentColor">EST. 2026</text>'
+    },
+    {
+      id:'tailgate', name:'Saturday Tailgate Club', line:'Tailgate Club', tagline:'Good games. Better weekends.',
+      price:52, colors:['navy','brick','brown','tan'],
+      desc:'For the ones who show up three hours early — for the parking lot, not the game.',
+      front:'<text x="0" y="-30" font-family="Barlow Condensed" font-weight="700" font-size="15" text-anchor="middle" fill="currentColor">SATURDAY</text><ellipse cx="0" cy="-6" rx="14" ry="9" fill="none" stroke="currentColor" stroke-width="2.4"/><line x1="-14" y1="-6" x2="14" y2="-6" stroke="currentColor" stroke-width="1.6"/>',
+      back:arc('TAILGATE CLUB',80,-62,24)+
+        '<use href="#i-paw" x="-24" y="-38" width="48" height="42"/>'+
+        '<use href="#i-cooler" x="-80" y="-6" width="34" height="34"/>'+
+        '<use href="#i-chair" x="44" y="-10" width="34" height="40"/>'+
+        '<use href="#i-pennant" x="4" y="-40" width="30" height="30"/>'+
+        '<text x="0" y="56" font-family="Barlow Condensed" font-weight="600" font-size="9" text-anchor="middle" fill="currentColor">GOOD GAMES. BETTER WEEKENDS.</text>'+
+        '<text x="0" y="68" font-family="Barlow Condensed" font-weight="600" font-size="8" text-anchor="middle" fill="currentColor">EST. 2026</text>'
+    },
+    {
+      id:'country', name:'Saturday Country Club', line:'Country Club', tagline:'Good rounds. Better weekends.',
+      price:52, colors:['oat','navy','forest','tan'],
+      desc:'Two carts, one cooler, and a tee rack that outlasts the round.',
+      front:'<text x="0" y="-30" font-family="Barlow Condensed" font-weight="700" font-size="15" text-anchor="middle" fill="currentColor">SATURDAY</text><g transform="translate(0,-8) rotate(20)"><use href="#i-golfclub" x="-14" y="-22" width="28" height="44"/></g><g transform="translate(0,-8) rotate(-20)"><use href="#i-golfclub" x="-14" y="-22" width="28" height="44"/></g>',
+      back:arc('COUNTRY CLUB',80,-62,24)+
+        '<use href="#i-golfcart" x="-70" y="-36" width="60" height="46"/>'+
+        '<use href="#i-golfcart" x="6" y="-36" width="60" height="46"/>'+
+        '<use href="#i-cooler" x="-14" y="4" width="26" height="26"/>'+
+        '<text x="0" y="52" font-family="Barlow Condensed" font-weight="600" font-size="9" text-anchor="middle" fill="currentColor">GOOD ROUNDS. BETTER WEEKENDS.</text>'+
+        '<text x="0" y="64" font-family="Barlow Condensed" font-weight="600" font-size="8" text-anchor="middle" fill="currentColor">EST. 2026</text>'
+    },
+    {
+      id:'beach', name:'Saturday Beach Club', line:'Beach Club', tagline:'Salt air. Good company.',
+      price:50, colors:['oat','slate','brick','sage'],
+      desc:'Two chairs, one umbrella, and zero itinerary until the tide comes in.',
+      front:'<text x="0" y="-30" font-family="Barlow Condensed" font-weight="700" font-size="15" text-anchor="middle" fill="currentColor">SATURDAY</text><use href="#i-umbrella" x="-16" y="-18" width="32" height="32"/>',
+      back:arc('BEACH CLUB',80,-62,24)+
+        '<use href="#i-sun" x="30" y="-46" width="30" height="30" opacity=".7"/>'+
+        '<use href="#i-umbrella" x="-30" y="-30" width="60" height="60"/>'+
+        '<use href="#i-chair" x="-64" y="0" width="26" height="30"/><use href="#i-chair" x="38" y="0" width="26" height="30"/>'+
+        '<use href="#i-wave" x="-70" y="34" width="140" height="16"/>'+
+        '<text x="0" y="62" font-family="Barlow Condensed" font-weight="600" font-size="9" text-anchor="middle" fill="currentColor">LONG DAYS. GOOD COMPANY.</text>'
+    },
+    {
+      id:'fall', name:'Saturday Fall Social', line:'Fall Social', tagline:'Cool days. Long weekends.',
+      price:52, colors:['forest','brick','brown','tan'],
+      desc:'Tailgate weather without the stadium — a truck, a cooler, and cooler air.',
+      front:'<text x="0" y="-30" font-family="Barlow Condensed" font-weight="700" font-size="15" text-anchor="middle" fill="currentColor">SATURDAY</text><use href="#i-leaf" x="-14" y="-14" width="28" height="28"/>',
+      back:arc('FALL SOCIAL',80,-62,24)+
+        '<use href="#i-truck" x="-46" y="-30" width="92" height="60"/>'+
+        '<use href="#i-cooler" x="-14" y="-4" width="24" height="24"/>'+
+        '<use href="#i-leaf" x="34" y="-46" width="20" height="20"/>'+
+        '<text x="0" y="52" font-family="Barlow Condensed" font-weight="600" font-size="9" text-anchor="middle" fill="currentColor">COOL DAYS. LONG WEEKENDS.</text>'
+    }
+  ];
+
+  var SIZES = ['S','M','L','XL','XXL'];
+  var state = {}; // per product: {color, size, side, helmet}
+
+  var main = document.getElementById('collections');
+  var html = '';
+  PRODUCTS.forEach(function(p, idx){
+    state[p.id] = {color:p.colors[0], size:'L', side:'front', helmet:0};
+    var flip = idx % 2 === 1 ? ' flip' : '';
+    html += '<section class="collection'+flip+'" id="'+p.id+'">'+
+      '<div class="media">'+
+        '<div class="tee-stage" id="stage-'+p.id+'" style="--tee-color:'+SWATCH_HEX[p.colors[0]]+';--tee-ink:'+SWATCH_INK[p.colors[0]]+'">'+
+          tee('var(--tee-color)', p.front, p.back)+
+        '</div>'+
+        '<div class="view-toggle" role="group" aria-label="Front or back view">'+
+          '<button class="active" data-side="front" data-target="'+p.id+'">Front</button>'+
+          '<button data-side="back" data-target="'+p.id+'">Back</button>'+
+        '</div>'+
+      '</div>'+
+      '<div class="info">'+
+        '<div class="kicker">'+p.line+'</div>'+
+        '<h2>'+p.name+'</h2>'+
+        '<p class="tagline">'+p.tagline+'</p>'+
+        '<p class="desc">'+p.desc+'</p>'+
+        '<div class="price">$'+p.price+'</div>'+
+        '<div class="swatch-row" role="group" aria-label="Color" id="swatches-'+p.id+'">'+
+          p.colors.map(function(c,i){return '<button class="swatch'+(i===0?' selected':'')+'" style="background:'+SWATCH_HEX[c]+'" data-color="'+c+'" data-target="'+p.id+'" aria-label="'+c+'"></button>';}).join('')+
+        '</div>'+
+        '<div class="size-row" role="group" aria-label="Size" id="sizes-'+p.id+'">'+
+          SIZES.map(function(s,i){return '<button class="size-pill'+(s==='L'?' selected':'')+'" data-size="'+s+'" data-target="'+p.id+'">'+s+'</button>';}).join('')+
+        '</div>'+
+        (p.hasHelmet ? (
+          '<div class="variant-block"><div class="variant-title">Choose your helmet</div><div class="variant-grid" id="variants-'+p.id+'">'+
+          HELMET_VARIANTS.map(function(v,i){
+            return '<button class="variant-btn'+(i===0?' selected':'')+'" data-idx="'+i+'" data-target="'+p.id+'" aria-label="'+v[1]+'">'+
+              '<svg viewBox="0 0 100 100"><use href="#i-helmet-shell"/><use href="#'+v[0]+'"/></svg></button>';
+          }).join('')+
+          '</div></div>'
+        ) : '')+
+        '<button class="add-btn" data-target="'+p.id+'">Add to bag — $'+p.price+'</button>'+
+        '<div class="spec">Comfort Colors 1717 · Garment-dyed · 100% ring-spun cotton · Relaxed fit</div>'+
+      '</div>'+
+    '</section>';
+  });
+  main.innerHTML = html;
+
+  var PRODUCTS_BY_ID = {};
+  PRODUCTS.forEach(function(p){ PRODUCTS_BY_ID[p.id] = p; });
+
+  // ---------- interactions: view toggle ----------
+  document.querySelectorAll('.view-toggle button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = btn.dataset.target, side = btn.dataset.side;
+      state[target].side = side;
+      var stage = document.getElementById('stage-'+target);
+      stage.querySelectorAll('.tee-side').forEach(function(s){ s.classList.toggle('active', s.dataset.side === side); });
+      btn.parentElement.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b === btn); });
+    });
+  });
+
+  // ---------- interactions: swatches ----------
+  document.querySelectorAll('.swatch').forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var target = sw.dataset.target, color = sw.dataset.color;
+      state[target].color = color;
+      var stage = document.getElementById('stage-'+target);
+      stage.style.setProperty('--tee-color', SWATCH_HEX[color]);
+      stage.style.setProperty('--tee-ink', SWATCH_INK[color]);
+      document.getElementById('swatches-'+target).querySelectorAll('.swatch').forEach(function(b){ b.classList.toggle('selected', b === sw); });
+    });
+  });
+
+  // ---------- interactions: sizes ----------
+  document.querySelectorAll('.size-pill').forEach(function(sp){
+    sp.addEventListener('click', function(){
+      var target = sp.dataset.target;
+      state[target].size = sp.dataset.size;
+      document.getElementById('sizes-'+target).querySelectorAll('.size-pill').forEach(function(b){ b.classList.toggle('selected', b === sp); });
+    });
+  });
+
+  // ---------- interactions: helmet variants ----------
+  document.querySelectorAll('.variant-btn').forEach(function(vb){
+    vb.addEventListener('click', function(){
+      var target = vb.dataset.target, idx = +vb.dataset.idx;
+      state[target].helmet = idx;
+      var decalId = HELMET_VARIANTS[idx][0];
+      var stage = document.getElementById('stage-'+target);
+      stage.querySelectorAll('.chest-decal').forEach(function(u){ u.setAttribute('href', '#'+decalId); });
+      document.getElementById('variants-'+target).querySelectorAll('.variant-btn').forEach(function(b){ b.classList.toggle('selected', b === vb); });
+    });
+  });
+
+  // ---------- cart ----------
+  var cart = [];
+  try { cart = JSON.parse(localStorage.getItem('saturday-cart') || '[]'); } catch(e){ cart = []; }
+
+  function saveCart(){ try { localStorage.setItem('saturday-cart', JSON.stringify(cart)); } catch(e){} }
+
+  function renderCart(){
+    var body = document.getElementById('drawerBody');
+    var count = cart.reduce(function(n,i){return n+1;},0);
+    document.getElementById('cartCount').textContent = count;
+    if(!cart.length){
+      body.innerHTML = '<p class="drawer-empty">Nothing in here yet — the weekend\'s still young.</p>';
+    } else {
+      body.innerHTML = cart.map(function(item, i){
+        return '<div class="cart-item">'+
+          '<div class="swatch-dot" style="background:'+SWATCH_HEX[item.color]+'"></div>'+
+          '<div class="ci-info"><div class="ci-name">'+item.name+'</div>'+
+          '<div class="ci-meta">'+item.color+' · '+item.size+'</div>'+
+          '<button class="ci-remove" data-i="'+i+'">Remove</button></div>'+
+          '<div class="ci-price">$'+item.price+'</div>'+
+        '</div>';
+      }).join('');
+      body.querySelectorAll('.ci-remove').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          cart.splice(+btn.dataset.i, 1);
+          saveCart(); renderCart();
+        });
+      });
+    }
+    var subtotal = cart.reduce(function(s,i){return s+i.price;},0);
+    document.getElementById('subtotal').textContent = '$'+subtotal;
+  }
+  renderCart();
+
+  document.querySelectorAll('.add-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var target = btn.dataset.target, p = PRODUCTS_BY_ID[target], s = state[target];
+      cart.push({name:p.name, color:s.color, size:s.size, price:p.price});
+      saveCart(); renderCart(); openDrawer();
+      showToast('Added '+p.name+' to your bag');
+    });
+  });
+
+  function openDrawer(){ document.getElementById('drawer').classList.add('open'); document.getElementById('scrim').classList.add('open'); }
+  function closeDrawer(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('scrim').classList.remove('open'); }
+  document.getElementById('openCart').addEventListener('click', openDrawer);
+  document.getElementById('closeCart').addEventListener('click', closeDrawer);
+  document.getElementById('scrim').addEventListener('click', closeDrawer);
+
+  document.getElementById('checkoutBtn').addEventListener('click', function(){
+    showToast("Concept store — checkout isn't wired up yet.");
+  });
+
+  var toastTimer;
+  function showToast(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2400);
+  }
+
+  document.getElementById('heroShop').addEventListener('click', function(){
+    document.getElementById('travel').scrollIntoView({behavior:'smooth'});
+  });
+})();
+</script>
